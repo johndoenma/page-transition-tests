@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Transition Test - Sub Page 2</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body data-barba="wrapper" class="subpage page-subpage2">
+    <header>
+        <h1><a href="index.html">Barba.js Page Transition Test</a></h1>
+    </header>
+
+    <section class="hero hero-subpage2" id="persistent-hero">
+        <h1>Barba.js Page Transition Test</h1>
+        <h2 id="hero-subtitle">Sub Page 2 Hero</h2>
+    </section>
+
+    <div class="content-stage">
+        <div data-barba="container" data-barba-namespace="subpage2" class="page-content subpage page-subpage2" data-page-class="subpage page-subpage2" data-hero-subtitle="Sub Page 2 Hero">
+            <section>
+                <div class="card-group">
+                    <div class="card card1">
+                        <a href="subpage1.html">Card #1</a>
+                    </div>
+                    <div class="card card2">
+                        <a href="subpage2.html">Card #2</a>
+                    </div>
+                    <div class="card card3">
+                        <a href="subpage3.html">Card #3</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="vendor/barba.umd.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

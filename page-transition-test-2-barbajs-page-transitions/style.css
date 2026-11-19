@@ -1,0 +1,151 @@
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  background: #fff;
+  color: #111;
+  overflow-x: hidden;
+  position: relative;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Barba wrapper stays persistent; only [data-barba="container"] content swaps */
+[data-barba="wrapper"] {
+  position: relative;
+  min-height: 100vh;
+}
+
+header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 1em;
+  color: white;
+  z-index: 20;
+
+  h1 {
+    font-size: 1em;
+    margin: 0;
+  }
+
+  a {
+    color: white;
+    text-decoration: none;
+  }
+}
+
+.hero {
+  padding: 6em 1em;
+  text-align: center;
+  background-color: black;
+  background-size: cover;
+  background-position: center;
+  color: white;
+  min-height: 0;
+  margin-bottom: 0;
+  transition: min-height 450ms ease, margin-bottom 450ms ease;
+
+  h1,
+  h2 {
+    margin: 0.2em 0;
+  }
+}
+
+/* Hero height animates when navigating between home and subpages */
+body.subpage .hero {
+  min-height: calc(5em + 300px);
+  margin-bottom: 50px;
+}
+
+/* Persistent stage below the hero; containers stack here during transitions */
+.content-stage {
+  display: grid;
+  background: #fff;
+}
+
+.page-content {
+  grid-area: 1 / 1;
+  width: 100%;
+  background: #fff;
+  opacity: 1;
+  transition: opacity 450ms ease;
+  will-change: opacity;
+}
+
+/* Crossfade swapped content only (header/hero remain persistent) */
+.page-content.is-leaving {
+  opacity: 0;
+}
+
+.page-content.is-entering {
+  opacity: 0;
+}
+
+.page-content.is-entering.is-entered {
+  opacity: 1;
+}
+
+.card-group {
+  display: flex;
+  gap: 1em;
+  padding: 1em;
+  flex-wrap: wrap;
+}
+
+.card {
+  a {
+    display: flex;
+    width: 200px;
+    height: 300px;
+    justify-content: center;
+    align-items: end;
+    border: 1px solid black;
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 1em;
+    text-decoration: none;
+    font-weight: 600;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  }
+
+  &.card1 a {
+    background-color: pink;
+    background-image: url('image1.jpg');
+  }
+
+  &.card2 a {
+    background-color: turquoise;
+    background-image: url('image2.jpg');
+  }
+
+  &.card3 a {
+    background-color: yellow;
+    background-image: url('image3.jpg');
+  }
+}
+
+.page-subpage1 .card1,
+.page-subpage2 .card2,
+.page-subpage3 .card3 {
+  position: fixed;
+  top: 6em;
+  left: 1em;
+  z-index: 15;
+}
+
+.transition-card-clone {
+  will-change: transform;
+  z-index: 10000;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-content,
+  .hero,
+  .transition-card-clone {
+    transition-duration: 0.01ms !important;
+  }
+}

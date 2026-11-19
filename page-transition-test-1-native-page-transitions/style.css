@@ -1,0 +1,149 @@
+@view-transition {
+  navigation: auto;
+}
+
+:root {
+  --transition-duration: 420ms;
+  --transition-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  background: #fff;
+  color: #111;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Persist/morph shared elements across documents */
+header {
+  view-transition-name: site-header;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 1em;
+  color: white;
+  z-index: 10;
+
+  h1 {
+    font-size: 1em;
+    margin: 0;
+  }
+
+  a {
+    color: white;
+    text-decoration: none;
+  }
+}
+
+.hero {
+  view-transition-name: hero;
+  padding: 6em 1em;
+  text-align: center;
+  background-color: black;
+  background-size: cover;
+  background-position: center;
+  color: white;
+
+  h1,
+  h2 {
+    margin: 0.2em 0;
+  }
+}
+
+.card-group {
+  display: flex;
+  gap: 1em;
+  padding: 1em;
+  flex-wrap: wrap;
+}
+
+.card {
+  a {
+    display: flex;
+    width: 200px;
+    height: 300px;
+    justify-content: center;
+    align-items: end;
+    border: 1px solid black;
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 1em;
+    text-decoration: none;
+    font-weight: 600;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  }
+
+  &.card1 {
+    view-transition-name: card-1;
+    a {
+      background-color: pink;
+      background-image: url('image1.jpg');
+    }
+  }
+
+  &.card2 {
+    view-transition-name: card-2;
+    a {
+      background-color: turquoise;
+      background-image: url('image2.jpg');
+    }
+  }
+
+  &.card3 {
+    view-transition-name: card-3;
+    a {
+      background-color: yellow;
+      background-image: url('image3.jpg');
+    }
+  }
+}
+
+.subpage .hero {
+  min-height: calc(5em + 300px);
+  margin-bottom: 50px;
+}
+
+.page-subpage1 .card1,
+.page-subpage2 .card2,
+.page-subpage3 .card3 {
+  position: absolute;
+  top: 6em;
+  left: 1em;
+  z-index: 5;
+}
+
+/* View transition animations */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 220ms;
+  animation-timing-function: ease;
+}
+
+::view-transition-group(hero),
+::view-transition-group(card-1),
+::view-transition-group(card-2),
+::view-transition-group(card-3),
+::view-transition-group(site-header) {
+  animation-duration: var(--transition-duration);
+  animation-timing-function: var(--transition-ease);
+}
+
+::view-transition-old(hero),
+::view-transition-new(hero) {
+  height: 100%;
+  overflow: clip;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-duration: 0.01ms !important;
+  }
+}
